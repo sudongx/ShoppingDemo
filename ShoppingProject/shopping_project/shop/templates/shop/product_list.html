@@ -1,0 +1,112 @@
+{% extends 'shop/base.html' %}
+{% block title %}{% if category %}{{ category.name }}{% else %}所有商品{% endif %}{% endblock %}
+{% load static %}
+{% block content %}
+    <!-- 面包屑导航 -->
+    <nav aria-label="breadcrumb" class="mb-6">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'shop:product_list' %}">首页</a></li>
+            {% if category %}
+                <li class="breadcrumb-item active" aria-current="page">{{ category.name }}</li>
+            {% else %}
+                <li class="breadcrumb-item active" aria-current="page">所有商品</li>
+            {% endif %}
+        </ol>
+    </nav>
+
+    <!-- 分类筛选 -->
+    <div class="mb-8">
+        <h2 class="text-xl font-semibold mb-4">商品分类</h2>
+        <div class="flex flex-wrap gap-2">
+            <a href="{% url 'shop:product_list' %}"
+               class="px-4 py-2 rounded-full bg-primary text-white {% if not category %}font-semibold{% endif %}">
+                全部
+            </a>
+            {% for cat in categories %}
+                <a href="{{ cat.get_absolute_url }}"
+                   class="px-4 py-2 rounded-full bg-white border border-neutral-200 hover:border-primary hover:text-primary transition-colors
+                          {% if category and cat.slug == category.slug %}bg-primary/10 border-primary text-primary font-semibold{% endif %}">
+                    {{ cat.name }}
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- 商品列表 -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {% for product in products %}
+            <div class="bg-white rounded-lg shadow-sm overflow-hidden product-card-hover">
+                <!-- 商品图片 -->
+                <div class="relative h-60 overflow-hidden">
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                    {% else %}
+                        <img src="{% static 'images/no-image.png' %}" alt="{{ product.name }}" class="w-full h-full object-cover">
+                    {% endif %}
+
+                    <!-- 商品标签 -->
+                    {% if product.price < 100 %}
+                        <div class="absolute top-2 left-2 bg-secondary text-white text-xs font-bold px-2 py-1 rounded">
+                            低价
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- 商品信息 -->
+                <div class="p-4">
+                    <h3 class="font-semibold text-lg mb-2 line-clamp-1">{{ product.name }}</h3>
+                    <p class="text-neutral-500 text-sm mb-3 line-clamp-2">{{ product.description }}</p>
+
+                    <!-- 价格 -->
+                    <div class="flex items-center justify-between">
+                        <span class="text-primary font-bold text-xl">¥{{ product.price }}</span>
+                        <a href="{{ product.get_absolute_url }}" class="btn-primary">
+                            查看详情
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- 分页 -->
+    {% if products.has_other_pages %}
+        <div class="mt-10 flex justify-center">
+            <nav aria-label="Page navigation">
+                <ul class="pagination flex">
+                    {% if products.has_previous %}
+                        <li class="page-item">
+                            <a href="?page={{ products.previous_page_number }}" class="page-link px-4 py-2 border border-neutral-200 rounded-l-lg hover:bg-primary hover:text-white transition-colors">
+                                <i class="fa fa-chevron-left"></i>
+                            </a>
+                        </li>
+                    {% endif %}
+
+                    {% for i in products.paginator.page_range %}
+                        {% if products.number == i %}
+                            <li class="page-item active">
+                                <a href="?page={{ i }}" class="page-link px-4 py-2 bg-primary text-white border border-primary">
+                                    {{ i }}
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="page-item">
+                                <a href="?page={{ i }}" class="page-link px-4 py-2 border border-neutral-200 hover:bg-primary hover:text-white transition-colors">
+                                    {{ i }}
+                                </a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if products.has_next %}
+                        <li class="page-item">
+                            <a href="?page={{ products.next_page_number }}" class="page-link px-4 py-2 border border-neutral-200 rounded-r-lg hover:bg-primary hover:text-white transition-colors">
+                                <i class="fa fa-chevron-right"></i>
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    {% endif %}
+{% endblock %}

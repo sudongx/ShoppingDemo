@@ -1,0 +1,16 @@
+{% extends 'shop/base.html' %}
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+    <h2 class="text-xl font-bold mb-6">{{ title }}</h2>
+    <div class="space-y-4">
+        <div class="bg-white p-4 rounded-lg shadow-sm">
+            <h3 class="text-lg font-semibold mb-2">Q：如何下单？</h3>
+            <p>步骤 1：选择商品 → 步骤 2：加入购物车 → 步骤 3：填写收货信息 → 步骤 4：提交订单</p>
+        </div>
+        <div class="bg-white p-4 rounded-lg shadow-sm">
+            <h3 class="text-lg font-semibold mb-2">Q：如何退换货？</h3>
+            <p>请联系客服并提供订单号，我们将在 24 小时内处理</p>
+        </div>
+    </div>
+{% endblock %}

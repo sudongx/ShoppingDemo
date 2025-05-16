@@ -1,0 +1,166 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% block title %}关于我们{% endblock %}
+
+{% block content %}
+    <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-12">
+            <h1 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold mb-4">关于我们</h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                了解更多关于我们的故事、使命和愿景
+            </p>
+        </div>
+
+        <!-- 关于我们介绍 -->
+        <div class="bg-white rounded-xl shadow-md p-8 mb-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <h2 class="text-2xl font-bold mb-4">我们的故事</h2>
+                    <p class="text-gray-700 mb-4">
+                        购物商城成立于2018年，是一家专注于提供优质商品和服务的在线购物平台。我们的使命是让购物变得简单、愉快，为顾客提供最优质的购物体验。
+                    </p>
+                    <p class="text-gray-700 mb-4">
+                        从创立之初，我们就坚持以顾客为中心的理念，不断优化产品和服务，努力满足顾客的需求。经过多年的发展，我们已经成为行业内知名的购物平台，拥有超过100万的注册用户和数千家合作商家。
+                    </p>
+                    <p class="text-gray-700">
+                        未来，我们将继续秉承"顾客至上"的原则，不断创新和进步，为顾客提供更多、更好的商品和服务。
+                    </p>
+                </div>
+                <div class="rounded-xl overflow-hidden">
+                    <img src="https://picsum.photos/seed/shop/600/400" alt="我们的团队" class="w-full h-auto">
+                </div>
+            </div>
+        </div>
+
+        <!-- 我们的使命和愿景 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                    <i class="fa fa-bullseye text-primary text-2xl"></i>
+                </div>
+                <h2 class="text-xl font-bold mb-3">我们的使命</h2>
+                <p class="text-gray-700">
+                    为顾客提供最优质的商品和服务，让购物变得简单、愉快。我们致力于通过不断创新和改进，满足顾客的需求，为顾客创造更多价值。
+                </p>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                    <i class="fa fa-eye text-primary text-2xl"></i>
+                </div>
+                <h2 class="text-xl font-bold mb-3">我们的愿景</h2>
+                <p class="text-gray-700">
+                    成为全球领先的在线购物平台，为顾客提供全方位的购物体验。我们希望通过我们的努力，改变人们的购物方式，让购物变得更加便捷、高效、愉悦。
+                </p>
+            </div>
+        </div>
+
+        <!-- 我们的优势 -->
+        <div class="mb-12">
+            <h2 class="text-2xl font-bold text-center mb-8">我们的优势</h2>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white rounded-xl shadow-md p-6 text-center">
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fa fa-shield text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">品质保证</h3>
+                    <p class="text-gray-700">
+                        所有商品均经过严格筛选和质量检测，确保为顾客提供高品质的商品。
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-md p-6 text-center">
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fa fa-truck text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">快速配送</h3>
+                    <p class="text-gray-700">
+                        我们与多家优质物流公司合作，确保商品能够快速、安全地送达顾客手中。
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-md p-6 text-center">
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fa fa-headphones text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">优质客服</h3>
+                    <p class="text-gray-700">
+                        我们拥有专业的客服团队，7×24小时为顾客提供咨询和售后服务。
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 我们的团队 -->
+        <div>
+            <h2 class="text-2xl font-bold text-center mb-8">我们的团队</h2>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="bg-white rounded-xl shadow-md overflow-hidden text-center">
+                    <img src="https://picsum.photos/seed/person1/300/300" alt="团队成员" class="w-full h-64 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg">张三</h3>
+                        <p class="text-gray-600 text-sm mb-2">创始人 & CEO</p>
+                        <div class="flex justify-center space-x-2">
+                            <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                                <i class="fa fa-linkedin"></i>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-md overflow-hidden text-center">
+                    <img src="https://picsum.photos/seed/person2/300/300" alt="团队成员" class="w-full h-64 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg">李四</h3>
+                        <p class="text-gray-600 text-sm mb-2">技术总监</p>
+                        <div class="flex justify-center space-x-2">
+                            <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                                <i class="fa fa-linkedin"></i>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                                <i class="fa fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-md overflow-hidden text-center">
+                    <img src="https://picsum.photos/seed/person3/300/300" alt="团队成员" class="w-full h-64 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg">王五</h3>
+                        <p class="text-gray-600 text-sm mb-2">市场总监</p>
+                        <div class="flex justify-center space-x-2">
+                            <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                                <i class="fa fa-linkedin"></i>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-md overflow-hidden text-center">
+                    <img src="https://picsum.photos/seed/person4/300/300" alt="团队成员" class="w-full h-64 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg">赵六</h3>
+                        <p class="text-gray-600 text-sm mb-2">运营总监</p>
+                        <div class="flex justify-center space-x-2">
+                            <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                                <i class="fa fa-linkedin"></i>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
