@@ -8,16 +8,16 @@
     <!-- 加载静态文件标签 -->
     {% load static %}
 
-    <!-- Tailwind CSS - CDN 版本 -->
+    <!-- Tailwind CSS-->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Font Awesome - CDN 版本 -->
+    <!-- Font Awesome-->
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
-    <!-- Bootstrap CSS - 本地版本 -->
+    <!-- Bootstrap CSS - 本地 -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
 
-    <!-- 自定义 Tailwind 配置 -->
+    <!-- Tailwind 配置 -->
     <script>
         tailwind.config = {
             theme: {
@@ -73,18 +73,18 @@
                 <img src="{% static 'images/logo.jpg'%}">
                 <span class="text-4xl font-bold text-neutral-700">&nbsp;&nbsp;欢迎您-零售购物线上客户端</span>
             </a>
-            {% if user.is_staff %} <!-- 确保管理员可见 -->
+            {% if user.is_staff %} 
             <a href="{% url 'shop:upload_product' %}" class="btn-primary ml-4">
                 <i class="fa fa-upload mr-1"></i>上传商品</a>
             {% endif %}
-            <!-- 导航链接 - 桌面版 -->
+            <!-- 导航链接 -->
             <div class="hidden md:flex items-center space-x-6">
-                <!-- 全部商品（首页） -->
+                <!-- 全部 -->
                 <a href="{% url 'shop:product_list' %}" class="nav-link">
                     <i class="fa fa-th mr-1"></i> 全部商品
                 </a>
 
-                <!-- 分类下拉菜单 -->
+                <!-- 下拉菜单 -->
                 <div class="dropdown relative">
                     <a href="#" class="nav-link flex items-center">
                         <i class="fa fa-list mr-1"></i> 商品分类
@@ -92,7 +92,7 @@
                     </a>
                     <div class="dropdown-menu w-48">
                         {% for category in categories %}
-                        {% if category.slug %} <!-- 新增判断：仅当slug存在时渲染 -->
+                        {% if category.slug %} 
                         <a href="{{ category.get_absolute_url }}" class="block px-4 py-2 hover:bg-neutral-100">
                             {{ category.name }}
                         </a>
@@ -123,7 +123,7 @@
                 {% endif %}
             </div>
 
-            <!-- 移动端菜单按钮 -->
+            <!-- 移动端 -->
             <div class="md:hidden">
                 <button id="mobile-menu-button" class="text-neutral-600 hover:text-primary">
                     <i class="fa fa-bars text-xl"></i>
@@ -202,7 +202,7 @@
             <div>
                 <h3 class="text-lg font-semibold mb-4">线上下单平台</h3>
                 <p class="text-neutral-300">
-                    本网站基于Django框架搭建，为用户提供新零售配送购物服务，网上下单，即可送达，欢迎您的使用！</p>
+                    本网站基于Django框架搭建的演示Demo，为用户提供新零售配送购物服务，网上下单，即可送达，欢迎您的使用！</p>
                 <div class="mt-4 flex space-x-4">
                     <a href="#" class="text-white hover:text-primary transition-colors">
                         <i class="fa fa-weibo"></i>
@@ -244,15 +244,15 @@
                 <ul class="space-y-2">
                     <li class="flex items-center">
                         <i class="fa fa-map-marker mr-2"></i>
-                        <span class="text-neutral-300">广州市广州科技贸易职业学院</span>
+                        <span class="text-neutral-300">广州科技贸易职业学院</span>
                     </li>
                     <li class="flex items-center">
                         <i class="fa fa-phone mr-2"></i>
-                        <span class="text-neutral-300">400-XXXX-XXXX</span>
+                        <span class="text-neutral-300">400-8888-8888</span>
                     </li>
                     <li class="flex items-center">
                         <i class="fa fa-envelope mr-2"></i>
-                        <span class="text-neutral-300">contact@qq.com</span>
+                        <span class="text-neutral-300">laisdyu@outlook.com</span>
                     </li>
                 </ul>
             </div>
@@ -273,7 +273,7 @@
 <!-- 在base.html中引入JS -->
 <script>
     function confirmAddToCart() {
-      return confirm('确认加入购物车？');
+      return confirm('加入购物车吗？');
     }
 </script>
 
@@ -305,7 +305,7 @@
         });
     });
 
-    // 图片懒加载
+    // 图片加载
     document.addEventListener("DOMContentLoaded", function () {
         const lazyImages = document.querySelectorAll('img');
 
