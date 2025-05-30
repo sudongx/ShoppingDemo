@@ -1,0 +1,170 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% block title %}关于我们{% endblock %}
+
+{% block content %}
+    <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-12">
+            <h1 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold mb-4">关于我们</h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                了解更多关于我们的故事、使命和愿景
+            </p>
+        </div>
+
+        <!-- 关于我们介绍 -->
+        <div class="bg-white rounded-xl shadow-md p-8 mb-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <h2 class="text-2xl font-bold mb-4">我们的故事</h2>
+                    <p class="text-gray-700 mb-4">
+                        为新零售打造的在线购物平台。利用云计算让购物变得简单、愉快，为顾客提供最优质的购物体验。
+                    </p>
+                    <p class="text-gray-700 mb-4">
+                        与线下门店达成合作，提供优质的端到端构建，并提供24小时的维护和支持。
+                    </p>
+                    <p class="text-gray-700">
+                        未来，我们将继续抓住云计算的浪潮，结合AI创建不断创新和进步，为顾客提供更多、更好的商品和服务。
+                    </p>
+                </div>
+                <div class="rounded-xl overflow-hidden">
+                    <img src="https://picsum.photos/seed/shop/600/400" alt="我们的团队" class="w-full h-auto">
+                </div>
+            </div>
+        </div>
+
+        <!-- 我们的使命和愿景 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                    <i class="fa fa-bullseye text-primary text-2xl"></i>
+                </div>
+                <h2 class="text-xl font-bold mb-3">技术栈-前端</h2>
+                <p class="text-gray-700">
+                    HTML/CSS/JavaScript：实现页面布局与交互逻辑。
+                    Bootstrap：快速构建响应式、适配移动设备的 Web 页面。<br>
+                    jQuery：简化 JavaScript 代码，实现页面动态效果支持。
+
+                </p>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                    <i class="fa fa-eye text-primary text-2xl"></i>
+                </div>
+                <h2 class="text-xl font-bold mb-3">技术栈-后端</h2>
+                <p class="text-gray-700">
+                   Django：使用高性能 Python Web 框架，用于搭建整个后端系统，处理业务逻辑、数据库交互等。<br>
+                    Django REST framework：用于构建 API 接口，方便与前端进行数据交互。
+                </p>
+            </div>
+        </div>
+
+        <!-- 我们的优势 -->
+        <div class="mb-12">
+            <h2 class="text-2xl font-bold text-center mb-8">我们的优势</h2>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white rounded-xl shadow-md p-6 text-center">
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fa fa-shield text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">品质保证</h3>
+                    <p class="text-gray-700">
+                        所有商品均经过严格筛选和质量检测，确保为顾客提供高品质的商品。
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-md p-6 text-center">
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fa fa-truck text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">快速配送</h3>
+                    <p class="text-gray-700">
+                        我们与多家优质物流公司合作，确保商品能够快速、安全地送达顾客手中。
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-md p-6 text-center">
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fa fa-headphones text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">优质客服</h3>
+                    <p class="text-gray-700">
+                        我们拥有专业的客服团队，7×24小时为顾客提供咨询和售后服务。
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 我们的团队 -->
+        <div>
+            <h2 class="text-2xl font-bold text-center mb-8">我们的团队</h2>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="bg-white rounded-xl shadow-md overflow-hidden text-center">
+                    <img src="{% static 'images/about.jfif'%}" alt="团队成员" class="w-full h-64 object-cover">
+                    <div class="p-4">
+                        <h1 class="font-bold text-lg">sudongx</h1>
+                        <p class="text-gray-600 text-sm mb-2">创始人 & CEO</p>
+                        <div class="flex justify-center space-x-2">
+                            <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                                <i class="fa fa-linkedin"></i>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-md overflow-hidden text-center">
+                    <img src="https://picsum.photos/seed/person2/300/300" alt="团队成员" class="w-full h-64 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg">李四</h3>
+                        <p class="text-gray-600 text-sm mb-2">技术总监</p>
+                        <div class="flex justify-center space-x-2">
+                            <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                                <i class="fa fa-linkedin"></i>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                                <i class="fa fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-md overflow-hidden text-center">
+                    <img src="https://picsum.photos/seed/person3/300/300" alt="团队成员" class="w-full h-64 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg">王五</h3>
+                        <p class="text-gray-600 text-sm mb-2">市场总监</p>
+                        <div class="flex justify-center space-x-2">
+                            <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                                <i class="fa fa-linkedin"></i>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-md overflow-hidden text-center">
+                    <img src="https://picsum.photos/seed/person4/300/300" alt="团队成员" class="w-full h-64 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg">赵六</h3>
+                        <p class="text-gray-600 text-sm mb-2">运营总监</p>
+                        <div class="flex justify-center space-x-2">
+                            <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                                <i class="fa fa-linkedin"></i>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

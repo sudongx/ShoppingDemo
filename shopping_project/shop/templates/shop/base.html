@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}购物商城{% endblock %}</title>
+
+    <!-- 加载静态文件标签 -->
+    {% load static %}
+
+    <!-- Tailwind CSS - CDN 版本 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome - CDN 版本 -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Bootstrap CSS - 本地版本 -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+
+    <!-- 自定义 Tailwind 配置 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#165DFF',
+                        secondary: '#FF7D00',
+                        neutral: {
+                            100: '#F5F7FA',
+                            200: '#E5E6EB',
+                            300: '#C9CDD4',
+                            400: '#86909C',
+                            500: '#4E5969',
+                            600: '#1D2129',
+                        }
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+
+    <!-- 自定义工具类 -->
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .product-card-hover {
+                @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+            }
+            .btn-primary {
+                @apply bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary/90 transition-all;
+            }
+            .btn-secondary {
+                @apply bg-secondary text-white px-4 py-2 rounded-lg hover:bg-secondary/90 transition-all;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-neutral-100">
+<!-- 导航栏 -->
+<header class="sticky top-0 z-50 bg-white shadow-sm">
+    <div class="container mx-auto px-4">
+        <nav class="flex items-center justify-between h-16">
+            <!-- Logo -->
+
+            <a href="{% url 'shop:product_list' %}" class="flex items-center">
+<!--                <i class="fa fa-shopping-bag text-primary text-4xl mr-4"></i>-->
+                <img src="{% static 'images/logo.jpg'%}">
+                <span class="text-4xl font-bold text-neutral-700">&nbsp;&nbsp;欢迎您-零售购物线上客户端</span>
+            </a>
+            {% if user.is_staff %} <!-- 确保管理员可见 -->
+            <a href="{% url 'shop:upload_product' %}" class="btn-primary ml-4">
+                <i class="fa fa-upload mr-1"></i>上传商品</a>
+            {% endif %}
+            <!-- 导航链接 - 桌面版 -->
+            <div class="hidden md:flex items-center space-x-6">
+                <!-- 全部商品（首页） -->
+                <a href="{% url 'shop:product_list' %}" class="nav-link">
+                    <i class="fa fa-th mr-1"></i> 全部商品
+                </a>
+
+                <!-- 分类下拉菜单 -->
+                <div class="dropdown relative">
+                    <a href="#" class="nav-link flex items-center">
+                        <i class="fa fa-list mr-1"></i> 商品分类
+                        <i class="fa fa-chevron-down ml-1 text-xs"></i>
+                    </a>
+                    <div class="dropdown-menu w-48">
+                        {% for category in categories %}
+                        {% if category.slug %} <!-- 新增判断：仅当slug存在时渲染 -->
+                        <a href="{{ category.get_absolute_url }}" class="block px-4 py-2 hover:bg-neutral-100">
+                            {{ category.name }}
+                        </a>
+                        {% else %}
+                        <span class="block px-4 py-2 text-gray-500">分类未配置</span> <!-- 可选：提示错误 -->
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- 关于我们 -->
+                <a href="{% url 'shop:about' %}" class="nav-link">
+                    <i class="fa fa-info-circle mr-1"></i> 关于我们
+                </a>
+
+                <!-- 联系我们 -->
+                <a href="{% url 'shop:contact' %}" class="nav-link">
+                    <i class="fa fa-envelope mr-1"></i> 联系我们
+                </a>
+
+                <!-- 常见问题 -->
+                <a href="{% url 'shop:faq' %}" class="nav-link">
+                    <i class="fa fa-question-circle mr-1"></i> 常见问题
+                </a>
+
+                {% if user.is_staff %}
+                <a href="{% url 'shop:upload_product' %}" class="btn-primary ml-4">上传商品</a>
+                {% endif %}
+            </div>
+
+            <!-- 移动端菜单按钮 -->
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-neutral-600 hover:text-primary">
+                    <i class="fa fa-bars text-xl"></i>
+                </button>
+            </div>
+        </nav>
+
+        <!-- 移动端菜单 -->
+        <div id="mobile-menu" class="md:hidden hidden pb-4">
+            <a href="{% url 'shop:product_list' %}" class="block py-2 flex items-center">
+                <i class="fa fa-th mr-2"></i> 全部商品
+            </a>
+
+            <div class="mobile-dropdown">
+                <a href="#" class="flex items-center justify-between py-2">
+                    <i class="fa fa-list mr-2"></i> 商品分类
+                    <i class="fa fa-chevron-down text-xs"></i>
+                </a>
+                <div class="mobile-dropdown-menu hidden pl-4">
+                    {% for category in categories %}
+                    <a href="{{ category.get_absolute_url }}" class="block py-2">{{ category.name }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <a href="{% url 'shop:about' %}" class="block py-2 flex items-center">
+                <i class="fa fa-info-circle mr-2"></i> 关于我们
+            </a>
+
+            <a href="{% url 'shop:contact' %}" class="block py-2 flex items-center">
+                <i class="fa fa-envelope mr-2"></i> 联系我们
+            </a>
+
+            <a href="{% url 'shop:faq' %}" class="block py-2 flex items-center">
+                <i class="fa fa-question-circle mr-2"></i> 常见问题
+            </a>
+
+            {% if user.is_staff %}
+            <a href="{% url 'shop:upload_product' %}" class="btn-primary block mt-4">上传商品</a>
+            {% endif %}
+        </div>
+    </div>
+</header>
+
+<!-- 主要内容 -->
+<main class="container mx-auto px-4 py-8">
+    <!-- 消息提示 -->
+    {% if messages %}
+    <div class="mb-4">
+        {% for message in messages %}
+        <div
+                class="bg-{% if message.tags == 'success' %}green-100{% elif message.tags == 'error' %}red-100{% elif message.tags == 'warning' %}yellow-100{% else %}blue-100{% endif %}
+                        border-l-4 border-{% if message.tags == 'success' %}green-500{% elif message.tags == 'error' %}red-500{% elif message.tags == 'warning' %}yellow-500{% else %}blue-500{% endif %}
+                        text-{% if message.tags == 'success' %}green-700{% elif message.tags == 'error' %}red-700{% elif message.tags == 'warning' %}yellow-700{% else %}blue-700{% endif %}
+                        p-4 rounded-lg">
+            <p>{{ message }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- 页面标题 -->
+    {% if title %}
+    <h1 class="text-2xl font-bold text-neutral-600 mb-6">{{ title }}</h1>
+    {% endif %}
+
+    <!-- 内容区域 -->
+    {% block content %}
+    {% endblock %}
+</main>
+
+<!-- 页脚 -->
+<footer class="bg-neutral-600 text-white py-10">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <h3 class="text-lg font-semibold mb-4">线上下单平台</h3>
+                <p class="text-neutral-300">
+                    本网站基于Django框架搭建，为用户提供新零售配送购物服务，网上下单，即可送达，欢迎您的使用！</p>
+                <div class="mt-4 flex space-x-4">
+                    <a href="#" class="text-white hover:text-primary transition-colors">
+                        <i class="fa fa-weibo"></i>
+                    </a>
+                    <a href="#" class="text-white hover:text-primary transition-colors">
+                        <i class="fa fa-wechat"></i>
+                    </a>
+                    <a href="#" class="text-white hover:text-primary transition-colors">
+                        <i class="fa fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-lg font-semibold mb-4">快速导航</h3>
+                <ul class="space-y-2">
+                    <li><a href="{% url 'shop:product_list' %}"
+                           class="text-neutral-300 hover:text-white transition-colors">购物首页</a></li>
+                    <li><a href="{% url 'shop:about' %}" class="text-neutral-300 hover:text-white transition-colors">关于我们</a>
+                    </li>
+                    <li><a href="{% url 'shop:contact' %}" class="text-neutral-300 hover:text-white transition-colors">联系我们</a>
+                    </li>
+                    <li><a href="{% url 'shop:faq' %}"
+                           class="text-neutral-300 hover:text-white transition-colors">常见问题</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-lg font-semibold mb-4">客户服务</h3>
+                <ul class="space-y-2">
+                    <li><a href="#" class="text-neutral-300 hover:text-white transition-colors">常见问题</a></li>
+                    <li><a href="#" class="text-neutral-300 hover:text-white transition-colors">退换货政策</a></li>
+                    <li><a href="#" class="text-neutral-300 hover:text-white transition-colors">配送信息</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-lg font-semibold mb-4">联系我们</h3>
+                <ul class="space-y-2">
+                    <li class="flex items-center">
+                        <i class="fa fa-map-marker mr-2"></i>
+                        <span class="text-neutral-300">广州市广州科技贸易职业学院</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fa fa-phone mr-2"></i>
+                        <span class="text-neutral-300">400-XXXX-XXXX</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fa fa-envelope mr-2"></i>
+                        <span class="text-neutral-300">contact@qq.com</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="border-t border-neutral-500 mt-8 pt-8 text-center text-neutral-400">
+            <p>&copy; 2023级 云计算2班 赖苏东&copy;</p>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery - 本地版本 -->
+<script src="{% static 'js/jquery.min.js' %}"></script>
+
+<!-- Bootstrap JS - 本地版本 -->
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+<!-- 在base.html中引入JS -->
+<script>
+    function confirmAddToCart() {
+      return confirm('确认加入购物车？');
+    }
+</script>
+
+
+<!-- 自定义 JavaScript -->
+<script>
+    // 移动端菜单切换
+    document.getElementById('mobile-menu-button').addEventListener('click', function () {
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenu.classList.toggle('hidden');
+    });
+
+    // 移动端分类下拉菜单
+    document.querySelectorAll('.mobile-dropdown > a').forEach(button => {
+        button.addEventListener('click', function (e) {
+            e.preventDefault();
+            const menu = this.nextElementSibling;
+            menu.classList.toggle('hidden');
+        });
+    });
+
+    // 平滑滚动
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+
+    // 图片懒加载
+    document.addEventListener("DOMContentLoaded", function () {
+        const lazyImages = document.querySelectorAll('img');
+
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const image = entry.target;
+                        image.classList.add('fade-in');
+                        imageObserver.unobserve(image);
+                    }
+                });
+            });
+
+            lazyImages.forEach(image => {
+                imageObserver.observe(image);
+            });
+        }
+    });
+</script>
+</body>
+</html>
