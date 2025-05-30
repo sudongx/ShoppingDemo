@@ -1,0 +1,75 @@
+{% extends "shop/base.html" %}
+{% load crispy_forms_tags %} <!-- 加载 crispy-forms 标签 -->
+
+{% block title %}上传新商品{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md">
+    <h2 class="text-2xl font-bold text-primary mb-6 text-center">
+        <i class="fa fa-upload mr-2"></i> 上传商品
+    </h2>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %} <!-- CSRF 令牌 -->
+
+        <!-- 表单错误提示 -->
+        {% if form.non_field_errors %}
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                {% for error in form.non_field_errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <!-- 商品名称 -->
+        <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700">
+                商品名称
+                <span class="text-red-500">*</span>
+            </label>
+            {{ form.name|as_crispy_field }}
+        </div>
+
+        <!-- 商品分类 -->
+        <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700">
+                商品分类
+                <span class="text-red-500">*</span>
+            </label>
+            {{ form.category|as_crispy_field }}
+        </div>
+
+        <!-- 商品价格 -->
+        <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700">
+                商品价格（元）
+                <span class="text-red-500">*</span>
+            </label>
+            {{ form.price|as_crispy_field }}
+        </div>
+
+        <!-- 商品描述 -->
+        <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700">
+                商品描述
+            </label>
+            {{ form.description|as_crispy_field }}
+        </div>
+
+        <!-- 商品图片 -->
+        <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700">
+                商品图片（可选）
+            </label>
+            {{ form.image|as_crispy_field }}
+        </div>
+
+        <!-- 提交按钮 -->
+        <div class="mt-8">
+            <button type="submit" class="w-full bg-primary text-white py-3 px-6 rounded-lg hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/50">
+                <i class="fa fa-save mr-2"></i> 保存商品
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

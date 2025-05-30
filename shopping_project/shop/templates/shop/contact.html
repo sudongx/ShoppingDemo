@@ -1,0 +1,164 @@
+{% extends "shop/base.html" %}
+{% block title %}联系我们 - 购物商城{% endblock %}
+{% load static %}
+{% block content %}
+
+
+<section class="relative h-[60vh] bg-gradient-to-r from-primary/90 to-primary">
+    <div class="absolute inset-0 bg-[url('{% static 'images/contact-hero.jpg' %}')] bg-cover bg-center opacity-20"></div>
+    <div class="container mx-auto px-6 md:px-12 h-full flex flex-col justify-center items-center text-center relative z-10">
+        <h1 class="text-[clamp(2.5rem,5vw,4rem)] font-bold text-white mb-4">联系我们</h1>
+        <p class="text-[clamp(1rem,2vw,1.25rem)] text-white/90 max-w-2xl">
+            无论您有任何问题或建议，我们都很乐意听取。请通过以下方式与我们联系，我们将尽快回复。
+        </p>
+    </div>
+</section>
+
+<!-- 联系信息卡片 -->
+<section class="container mx-auto px-6 md:px-12 -mt-20 relative z-20">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- 电话卡片 -->
+        <div class="bg-white rounded-xl shadow-xl p-8 flex flex-col items-center text-center hover:shadow-2xl transition-shadow duration-300">
+            <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+                <i class="fa fa-phone text-primary text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-2">电话咨询</h3>
+            <p class="text-neutral-600 mb-4">工作时间: 周一至周日 9:00-21:00</p>
+            <a href="tel:4001234567" class="text-primary font-semibold text-lg">400-123-4567</a>
+        </div>
+        
+        <!-- 邮箱卡片 -->
+        <div class="bg-white rounded-xl shadow-xl p-8 flex flex-col items-center text-center hover:shadow-2xl transition-shadow duration-300">
+            <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+                <i class="fa fa-envelope text-primary text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-2">邮件沟通</h3>
+            <p class="text-neutral-600 mb-4">24小时内回复</p>
+            <a href="mailto:service@shop.com" class="text-primary font-semibold text-lg">XXXXX@shop.com</a>
+        </div>
+        
+        <!-- 地址卡片 -->
+        <div class="bg-white rounded-xl shadow-xl p-8 flex flex-col items-center text-center hover:shadow-2xl transition-shadow duration-300">
+            <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+                <i class="fa fa-map-marker text-primary text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-2">联系地址</h3>
+            <p class="text-neutral-600 text-center">
+                广州市黄埔区联合街道<br>
+                光宝广州科技园
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- 联系表单和地图 -->
+<section class="container mx-auto px-6 md:px-12 py-16">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        <!-- 联系表单 -->
+        <div class="bg-white rounded-xl shadow-lg p-8">
+            <h2 class="text-2xl font-bold mb-6">发送消息</h2>
+            <form method="POST" action="{% url 'shop:contact_submit' %}">
+                {% csrf_token %}
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-neutral-700 mb-2">姓名</label>
+                        <input type="text" id="name" name="name" class="w-full px-4 py-3 rounded-lg border border-neutral-300 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors" required>
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-neutral-700 mb-2">邮箱</label>
+                        <input type="email" id="email" name="email" class="w-full px-4 py-3 rounded-lg border border-neutral-300 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors" required>
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <label for="subject" class="block text-sm font-medium text-neutral-700 mb-2">主题</label>
+                    <input type="text" id="subject" name="subject" class="w-full px-4 py-3 rounded-lg border border-neutral-300 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors" required>
+                </div>
+                <div class="mb-6">
+                    <label for="message" class="block text-sm font-medium text-neutral-700 mb-2">消息内容</label>
+                    <textarea id="message" name="message" rows="5" class="w-full px-4 py-3 rounded-lg border border-neutral-300 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors resize-none" required></textarea>
+                </div>
+                <button type="submit" class="w-full bg-primary text-white py-3 px-6 rounded-lg font-medium hover:bg-primary/90 transition-colors flex items-center justify-center">
+                    <i class="fa fa-paper-plane mr-2"></i> 发送消息
+                </button>
+            </form>
+        </div>
+        
+        <!-- 模拟地图 -->
+        <div class="rounded-xl overflow-hidden shadow-lg h-[500px]">
+            <img src="{% static 'images/捕获.PNG' %}" alt="地理位置">
+        </div>
+    </div>
+</section>
+
+<!-- 常见问题 -->
+<section class="bg-neutral-50 py-16">
+    <div class="container mx-auto px-6 md:px-12">
+        <h2 class="text-2xl font-bold text-center mb-12">常见问题</h2>
+        <div class="max-w-3xl mx-auto">
+            <!-- 折叠面板 -->
+            <div class="space-y-4">
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <button class="w-full px-6 py-4 text-left font-medium flex justify-between items-center focus:outline-none" onclick="toggleFAQ(this)">
+                        <span>如何查询订单状态？</span>
+                        <i class="fa fa-chevron-down text-neutral-400 transition-transform"></i>
+                    </button>
+                    <div class="px-6 pb-4 hidden">
+                        <p class="text-neutral-600">
+                            您可以登录账户，在"我的订单"页面查看所有订单状态。也可以通过订单号在首页搜索框查询。
+                        </p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <button class="w-full px-6 py-4 text-left font-medium flex justify-between items-center focus:outline-none" onclick="toggleFAQ(this)">
+                        <span>如何申请退换货？</span>
+                        <i class="fa fa-chevron-down text-neutral-400 transition-transform"></i>
+                    </button>
+                    <div class="px-6 pb-4 hidden">
+                        <p class="text-neutral-600">
+                            在订单完成后7天内，您可以在订单详情页点击"申请售后"，选择退换货原因并提交申请。
+                        </p>
+                    </div>
+                </div>
+                <!-- 更多FAQ项 -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 社交媒体 -->
+<section class="py-12 bg-primary">
+    <div class="container mx-auto px-6 md:px-12 text-center">
+        <h3 class="text-xl font-bold text-white mb-6">关注我们</h3>
+        <div class="flex justify-center space-x-6">
+            <a href="#" class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white hover:text-primary transition-colors">
+                <i class="fa fa-weixin text-xl"></i>
+            </a>
+            <a href="#" class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white hover:text-primary transition-colors">
+                <i class="fa fa-weibo text-xl"></i>
+            </a>
+            <a href="#" class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white hover:text-primary transition-colors">
+                <i class="fa fa-instagram text-xl"></i>
+            </a>
+            <a href="#" class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white hover:text-primary transition-colors">
+                <i class="fa fa-youtube-play text-xl"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<script>
+    // FAQ折叠面板交互
+    function toggleFAQ(button) {
+        const content = button.nextElementSibling;
+        const icon = button.querySelector('i');
+        
+        if (content.classList.contains('hidden')) {
+            content.classList.remove('hidden');
+            icon.classList.add('rotate-180');
+        } else {
+            content.classList.add('hidden');
+            icon.classList.remove('rotate-180');
+        }
+    }
+</script>
+{% endblock %}
