@@ -41,7 +41,7 @@
 
 
 ```
-git clone \[你的GitHub仓库链接]
+git clone https://github.com/sudongx/ShoppingDemo.git
 ```
 
 **创建虚拟环境（可选）**：
