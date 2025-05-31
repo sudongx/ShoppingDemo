@@ -67,7 +67,7 @@
                 <img src="{% static 'images/logo.jpg'%}">
                 <span class="text-4xl font-bold text-neutral-700">&nbsp;&nbsp;欢迎您!-商超线上客户端</span>
             </a>
-            {% if user.is_staff %} <!-- 确保管理员可见 -->
+            {% if user.is_staff %} <!-- 管理员可见 -->
             <a href="{% url 'shop:upload_product' %}" class="btn-primary ml-4">
                 <i class="fa fa-upload mr-1"></i>上传商品</a>
             {% endif %}
@@ -86,12 +86,12 @@
                     </a>
                     <div class="dropdown-menu w-48">
                         {% for category in categories %}
-                        {% if category.slug %} <!-- 新增判断：仅当slug存在时渲染 -->
+                        {% if category.slug %} <!-- 仅当slug存在时渲染 -->
                         <a href="{{ category.get_absolute_url }}" class="block px-4 py-2 hover:bg-neutral-100">
                             {{ category.name }}
                         </a>
                         {% else %}
-                        <span class="block px-4 py-2 text-gray-500">分类未配置</span> <!-- 可选：提示错误 -->
+                        <span class="block px-4 py-2 text-gray-500">分类未配置</span>
                         {% endif %}
                         {% endfor %}
                     </div>
