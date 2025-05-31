@@ -1,0 +1,20 @@
+{% extends "shop/base.html" %}
+
+{% block title %}确认删除商品{% endblock %}
+
+{% block content %}
+<div class="max-w-md mx-auto mt-8">
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-2xl font-bold text-neutral-700 mb-4">确认删除</h2>
+        <p class="text-neutral-600 mb-6">你确定要删除商品 "{{ product.name }}" 吗？</p>
+
+        <form method="POST">
+            {% csrf_token %}
+            <div class="flex space-x-4">
+                <button type="submit" class="btn-primary">确认删除</button>
+                <a href="{% url 'shop:product_list' %}" class="btn-secondary">取消</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
